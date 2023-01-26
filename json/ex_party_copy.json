@@ -1,0 +1,37 @@
+[
+	{
+		"Name": "Artaud Pike",
+		"BaseInitiative": 7,
+		"TieBreaker": 4,
+		"RollNum": 0,
+		"LadderInitiative": 0
+	},
+	{
+		"Name": "Cecillia Gent",
+		"BaseInitiative": 8,
+		"TieBreaker": 5,
+		"RollNum": 0,
+		"LadderInitiative": 0
+	},
+	{
+		"Name": "Clement Stonewright",
+		"BaseInitiative": 9,
+		"TieBreaker": 6,
+		"RollNum": 0,
+		"LadderInitiative": 0
+	},
+	{
+		"Name": "Eponine Dyrne",
+		"BaseInitiative": 8,
+		"TieBreaker": 5,
+		"RollNum": 0,
+		"LadderInitiative": 0
+	},
+	{
+		"Name": "Lupin Grist",
+		"BaseInitiative": 8,
+		"TieBreaker": 5,
+		"RollNum": 0,
+		"LadderInitiative": 0
+	}
+]

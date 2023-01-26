@@ -1,0 +1,27 @@
+[
+	{
+		"Name": "Artaud Pike",
+		"BaseInitiative": 7,
+		"TieBreaker": 4
+	},
+	{
+		"Name": "Cecillia Gent",
+		"BaseInitiative": 8,
+		"TieBreaker": 5
+	},
+	{
+		"Name": "Clement Stonewright",
+		"BaseInitiative": 9,
+		"TieBreaker": 6
+	},
+	{
+		"Name": "Eponine Dyrne",
+		"BaseInitiative": 8,
+		"TieBreaker": 5
+	},
+	{
+		"Name": "Lupin Grist",
+		"BaseInitiative": 8,
+		"TieBreaker": 5
+	}
+]

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>Blackbirds</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" type="text/css" media="screen" href="index.css" />
+</head>
+
+<body>
+<script type="module">
+  import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
+  import { FM } from '/js/Luck.mjs'
+  
+  console.log('begin')
+  var socket = io()
+  console.log('socket', socket)
+
+  const bbfm = new FM();
+  window.bbfm = bbfm
+  bbfm.UpdateHTML()
+  // bbfm.Spend(bbfm.fortune, 0)
+  // bbfm.Spend(bbfm.misfortune, 0)
+  window.Spend = Spend
+
+  function Spend(coin) {
+    bbfm.Spend(coin, 1)
+    socket.emit("spend", bbfm)
+  }
+
+  socket.on("spend", (fm) => {
+    console.log("SPENT", fm)
+    bbfm.fortune.current = fm.fortune._current
+    bbfm.misfortune.current = fm.misfortune._current
+    bbfm.UpdateHTML()
+  })
+</script>
+	<!-- LADDER -->
+
+	<script type="module">
+    console.log('in mod')
+		import { Ladder } from '/js/Ladder.mjs'
+		var ladder = new Ladder()
+		window.ladder = ladder
+		const input = document.querySelector("#file-json")
+		const reader = new FileReader()
+		input.addEventListener('change', update);
+		function update() {
+			const file = input.files[0]
+			console.log(file)
+			reader.readAsText(file)
+			reader.onload = () => {
+				console.log(reader)
+				console.log(JSON.parse(reader.result))
+			}
+		}
+		console.log(input)
+	</script>
+
+	<!-- FORTUNE & MISFORTUNE -->
+  <script type = "module">console.log('HELLO!!!!!!!!!')
+  console.log(window.location.href)
+  </script>
+	<script type="module">
+
+
+		function jsonSave() {
+			document.getElementById("testSaveThingy").href =
+				"data:text/json;charset=utf-8," +
+				"THIS IS WHERE THE DATA INSIDE THE JSON SHOULD GO";
+			document.getElementById("testSaveThingy").download =
+				"info_" + +new Date() + ".json";
+		}
+		// https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API/File_drag_and_drop
+		function dropHandler(ev) {
+			console.log("File(s) dropped");
+
+			// Prevent default behavior (Prevent file from being opened)
+			ev.preventDefault();
+
+			if (ev.dataTransfer.items) {
+				// Use DataTransferItemList interface to access the file(s)
+				[...ev.dataTransfer.items].forEach((item, i) => {
+					// If dropped items aren't files, reject them
+					if (item.kind === "file") {
+						const file = item.getAsFile();
+						console.log(`… file[${i}].name = ${file.name}`);
+					}
+				});
+			} else {
+				// Use DataTransfer interface to access the file(s)
+				[...ev.dataTransfer.files].forEach((file, i) => {
+					console.log(`… file[${i}].name = ${file.name}`);
+				});
+			}
+		}
+
+		function dragOverHandler(ev) {
+			console.log("File(s) in drop zone");
+
+			// Prevent default behavior (Prevent file from being opened)
+			ev.preventDefault();
+		}
+	</script>
+
+	<button onclick="debug()" style="width: 100px; height: 100px"></button>
+
+	<p>The quick brown fox</p>
+	<a href="./techdc/techdc.json">link to file</a><br />
+	<a href="./techdc/techdc.json" download>download and guess name</a><br />
+	<a href="" download="awaga.txt">download with set name</a><br />
+	<a href="#" download="uhh.json" id="testSaveThingy" onclick="jsonSave()">
+		Save custom code ?
+	</a>
+	<br />
+	<textarea>test</textarea>
+	<button id="test1" onclick="alert('weesnaw')">
+		This is a test button!
+	</button>
+	<div class="luckButtons">
+		<button id="fortune" class="luckButton" onclick="Spend(bbfm.fortune)"
+			oncontextmenu="bbfm.Spend(bbfm.misfortune); return false">
+			Fortune
+		</button>
+		🎭
+		<button id="misfortune" class="luckButton" onclick="Spend(bbfm.misfortune)"
+			oncontextmenu="bbfm.Spend(bbfm.fortune); return false">
+			Misfortune
+		</button>
+	</div>
+	<div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+		THIS IS A DROP ZONE!!!!!!!!!!!!!!!!!
+	</div>
+	<input type="file" id="file-json" accept=".json">
+</body>
+
+</html>
