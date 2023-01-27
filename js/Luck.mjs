@@ -30,11 +30,16 @@ export class Luck {
             return;
         }
         else {
-            v === 0
-                ? document.getElementById(this.name).setAttribute("disabled", "")
-                : document.getElementById(this.name).removeAttribute("disabled");
+            this.UpdateHTML();
         }
         this._current = v;
+    }
+    UpdateHTML() {
+        document.getElementById(this.name).innerText =
+            this.current.toString();
+        this.current === 0
+            ? document.getElementById(this.name).setAttribute("disabled", "")
+            : document.getElementById(this.name).removeAttribute("disabled");
     }
     Reset() {
         this._current = this._default;
@@ -59,11 +64,8 @@ export class FM {
         console.log(`(was ${coin.current + amount}, is ${coin.current}) ${amount} ${coin.name} spent at ${Date()}`);
     }
     UpdateHTML() {
-        console.log('this', this);
-        document.getElementById(this.fortune.name).innerText =
-            this.fortune.current.toString();
-        document.getElementById(this.misfortune.name).innerText =
-            this.misfortune.current.toString();
+        this.fortune.UpdateHTML();
+        this.misfortune.UpdateHTML();
     }
 }
 //# sourceMappingURL=Luck.mjs.map

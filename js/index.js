@@ -1,10 +1,14 @@
 import express from "express";
 import { Server } from "socket.io";
 import http from "http";
+// import { FM } from "Luck.mts"
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server); // , { path: process.cwd() + '/js/' }
 const port = 3000;
+const master_pw = process.env['master_pw'];
+const lucks = {};
+const ladders = {};
 console.log("IOPATH", io.path());
 console.log("CWD", process.cwd());
 app.use('/js', express.static('js'));
@@ -21,9 +25,11 @@ server.listen(port, () => {
     console.log(`App listening on port ${port}`);
 });
 io.on("connection", (socket) => {
-    console.log('user connected ' + socket);
+    io.emit("spend", Object.values(lucks)[0]);
+    console.log('values', Object.values(lucks)[0]);
+    console.log('user connected ' + socket.handshake.address);
     socket.on('disconnect', () => {
-        console.log('user dc ' + socket);
+        console.log('user dc ' + socket.handshake.address);
     });
     socket.on("spend", (fm) => {
         console.log("COIN", fm);

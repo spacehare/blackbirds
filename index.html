@@ -16,7 +16,8 @@
   
   console.log('begin')
   var socket = io()
-  console.log('socket', socket)
+  console.log('socket', Object.values(socket))
+
 
   const bbfm = new FM();
   window.bbfm = bbfm
@@ -121,12 +122,12 @@
 	</button>
 	<div class="luckButtons">
 		<button id="fortune" class="luckButton" onclick="Spend(bbfm.fortune)"
-			oncontextmenu="bbfm.Spend(bbfm.misfortune); return false">
+			oncontextmenu="Spend(bbfm.misfortune); return false">
 			Fortune
 		</button>
 		🎭
 		<button id="misfortune" class="luckButton" onclick="Spend(bbfm.misfortune)"
-			oncontextmenu="bbfm.Spend(bbfm.fortune); return false">
+			oncontextmenu="Spend(bbfm.fortune); return false">
 			Misfortune
 		</button>
 	</div>
